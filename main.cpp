@@ -10,14 +10,30 @@ enum class GameMode
     EXIT
 };
 
-class Gameflow
+class GameTick
 {
     public:
-        int choice;
+    int tick;
 
-        void mainMenu(int choice);
-        void gameMenu(int choice);
-        void exit();
+    // Constructor
+    GameTick()
+    {
+        tick = 0;
+    }
+
+    // Destructor
+    ~GameTick()
+    {
+        std::cout << "Destructor called" << std::endl;
+    }
+
+    // getter
+    int getTick();
+
+    // setter
+    void setTick(int tick);
+    void tickIncrease();
+
 };
 
 // clear screen
@@ -45,16 +61,10 @@ class Money
         }
 
         // getter
-        double getBalance()
-        {
-            return balance;
-        }
+        double getBalance();
 
         // setter
-        void setBalance(double balance)
-        {
-            this->balance = balance;
-        }
+        void setBalance(double balance);
 };
 
 class Population
@@ -95,12 +105,22 @@ class Player
         Population population;
 };
 
+class Gameflow
+{
+    public:
+        GameTick gameTick;
+        Player player;
+        
+        int choice;
 
+        void mainMenu(int choice);
+        void gameMenu(int choice);
+        void exit();
+};
 
 int main()
 {        
     Gameflow gameflow;
-    Player player;
     GameMode mode = GameMode::MAIN_MENU; 
 
 
@@ -129,6 +149,21 @@ int main()
 void clearScreen()
 {
     std::cout << std::string(100, '\n');
+}
+
+int GameTick::getTick()
+{
+    return tick;
+}
+
+void GameTick::setTick(int tick)
+{
+    this->tick = tick;
+}
+
+void GameTick::tickIncrease()
+{
+    tick++;
 }
 
 void Gameflow::mainMenu(int choice)
